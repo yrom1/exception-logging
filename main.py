@@ -11,10 +11,12 @@ if (sys.version_info.major, sys.version_info.minor) < (3, 6):
     raise Exception("Must be using Python 3.6 or higher for zoneinfo.")
 elif sys.version_info.minor < 9:
     import backports.zoneinfo
-    backports = True
+
+    BACKPORT = True
 else:
-    import zoneinfo as backports.zoneinfo # type: ignore
-    backports = False
+    import zoneinfo  # type: ignore
+
+    BACKPORT = False
 
 F = TypeVar("F", bound=Callable[..., Any])
 
@@ -38,7 +40,7 @@ def log(function: F) -> F:
     def wrapper(*args, **kwargs):
         args_repr = [repr(a) for a in args]
         kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
-        if backports:
+        if BACKPORT:
             timestamp = str(
                 datetime.datetime.now().astimezone(
                     backports.zoneinfo.ZoneInfo("US/Eastern")
@@ -47,7 +49,7 @@ def log(function: F) -> F:
         else:
             timestamp = str(
                 datetime.datetime.now().astimezone(
-                    zoneinfo.ZoneInfo("US/Eastern") # type: ignore
+                    zoneinfo.ZoneInfo("US/Eastern")  # type: ignore
                 )
             )
         signature = ", ".join(args_repr + kwargs_repr)
