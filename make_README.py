@@ -17,6 +17,6 @@ def no_return() -> NoReturn:
 with open("README.md", "w") as README:
     README.write("# exception-logging-decorator\n")
     README.write("The following function:")
-    write_readme_block(README, TEST_FUNCTION)
+    write_readme_block(README, TEST_FUNCTION, "py")
     README.write("Logs the following exception in `log.log`.")
     write_readme_block(README, log_contents)

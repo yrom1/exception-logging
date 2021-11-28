@@ -1,6 +1,6 @@
 # exception-logging-decorator
 The following function:
-```
+```py
 @log
 def no_return() -> NoReturn:
     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
