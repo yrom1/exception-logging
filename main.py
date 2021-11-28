@@ -20,6 +20,8 @@ else:
 
 F = TypeVar("F", bound=Callable[..., Any])
 
+TIMEZONE = "US/Eastern" # for other timezones see:
+    # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 LOGGING_FILENAME = "log.log"
 LOG_FILE = pathlib.Path(".") / LOGGING_FILENAME
 try:
@@ -31,11 +33,8 @@ LOGGER = logging.getLogger()
 
 
 def log(function: F) -> F:
-    """Exception logging decorator.
-    Uses "US/Eastern" time zone by default, for other zones see:
-        https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-        https://www.python.org/dev/peps/pep-0615/"""
-
+    """Decorator that logs the qualified function name, args, kwargs, and
+    the timestamp of execptions that occur in functions and methods."""
     @functools.wraps(function)
     def wrapper(*args, **kwargs):
         args_repr = [repr(a) for a in args]
@@ -43,13 +42,13 @@ def log(function: F) -> F:
         if BACKPORT:
             timestamp = str(
                 datetime.datetime.now().astimezone(
-                    backports.zoneinfo.ZoneInfo("US/Eastern")
+                    backports.zoneinfo.ZoneInfo(TIMEZONE)
                 )
             )
         else:
             timestamp = str(
                 datetime.datetime.now().astimezone(
-                    zoneinfo.ZoneInfo("US/Eastern")  # type: ignore
+                    zoneinfo.ZoneInfo(TIMEZONE)  # type: ignore
                 )
             )
         signature = ", ".join(args_repr + kwargs_repr)
