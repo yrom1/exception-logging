@@ -1,0 +1,7 @@
+ERROR:root:Exception raised in function "no_return" called with args "" at "2021-11-28 13:38:42.770345-05:00". exception: "DO NOT PASS GO DO NOT COLLECT $200."
+Traceback (most recent call last):
+  File "main.py", line 37, in wrapper
+    output = function(*args, **kwargs)
+  File "main.py", line 54, in no_return
+    raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
+Exception: DO NOT PASS GO DO NOT COLLECT $200.
