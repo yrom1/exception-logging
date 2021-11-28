@@ -18,9 +18,7 @@ F = TypeVar("F", bound=Callable[..., Any])
 
 LOGGING_FILENAME = "log.log"
 LOG_FILE = pathlib.Path(".") / LOGGING_FILENAME
-print(LOG_FILE)
 try:
-    print("trying")
     LOG_FILE.unlink()
 except FileNotFoundError:
     pass
