@@ -5,7 +5,7 @@ import functools
 import logging
 import pathlib
 import sys
-from typing import Any, Callable, NoReturn, TypeVar
+from typing import Any, Callable, TypeVar
 
 if (sys.version_info.major, sys.version_info.minor) < (3, 6):
     raise Exception("Must be using Python 3.6 or higher for zoneinfo.")
@@ -54,16 +54,3 @@ def log(function: F) -> F:
             raise e
 
     return wrapper  # type: ignore
-
-
-@log
-def no_return() -> NoReturn:
-    """Test function."""
-    raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
-
-
-if __name__ == "__main__":
-    try:
-        no_return()
-    except:
-        pass
