@@ -16,6 +16,17 @@ else:
 
 F = TypeVar("F", bound=Callable[..., Any])
 
+LOGGING_FILENAME = "log.log"
+LOG_FILE = pathlib.Path(".") / LOGGING_FILENAME
+print(LOG_FILE)
+try:
+    print("trying")
+    LOG_FILE.unlink()
+except FileNotFoundError:
+    pass
+logging.basicConfig(filename=LOGGING_FILENAME, filemode="a", level=logging.ERROR)
+LOGGER = logging.getLogger()
+
 
 def log(function: F) -> F:
     """Exception logging decorator.
@@ -38,11 +49,9 @@ def log(function: F) -> F:
             return output
         except Exception as e:
             LOGGER.exception(
-                (
-                    f'Exception raised in function "{function.__qualname__}"'
-                    f' called with args "{signature}" at "{timestamp}".'
-                    f' exception: "{str(e)}"'
-                )
+                f'Exception raised in function "{function.__qualname__}"\n'
+                f' called with args "{signature}" at "{timestamp}".\n'
+                f' exception: "{str(e)}"'
             )
             raise e
 
@@ -51,18 +60,12 @@ def log(function: F) -> F:
 
 @log
 def no_return() -> NoReturn:
+    """Test function."""
     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
 
 
-LOGGING_FILENAME = "log.log"
-LOG_FILE = pathlib.Path(".") / LOGGING_FILENAME
-try:
-    LOG_FILE.unlink()
-except FileNotFoundError:
-    pass
-logging.basicConfig(filename=LOGGING_FILENAME, filemode="a", level=logging.ERROR)
-LOGGER = logging.getLogger()
-try:
-    no_return()
-except:
-    pass
+if __name__ == "__main__":
+    try:
+        no_return()
+    except:
+        pass
