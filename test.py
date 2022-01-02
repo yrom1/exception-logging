@@ -1,7 +1,6 @@
 from typing import NoReturn
 
-from main import log
-
+from exception_logger.main import log
 
 @log
 def no_return() -> NoReturn:
