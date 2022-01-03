@@ -8,15 +8,18 @@ def write_readme_block(file: TextIO, content: str, markup_language: str = "") ->
 
 
 with open("log.log", "r") as log:
-    log_contents = log.read()
+    LOG_CONTENTS = log.read().rstrip()
 
-TEST_FUNCTION = """@log
-def no_return() -> NoReturn:
-    raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")"""
+with open('test.py', 'r') as f:
+    TEST_FUNCTION = f.read().rstrip()
+
+# TEST_FUNCTION = """@log
+# def no_return() -> NoReturn:
+#     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")"""
 
 with open("README.md", "w") as README:
     README.write("# exception-logging-decorator\n")
     README.write("The following function:")
     write_readme_block(README, TEST_FUNCTION, "py")
     README.write("Logs the following exception in `log.log`.")
-    write_readme_block(README, log_contents)
+    write_readme_block(README, LOG_CONTENTS)
