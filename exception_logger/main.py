@@ -1,4 +1,16 @@
-"""Exception logging decorator."""
+"""Second order exception logging decorator.
+
+Creates exception loggers that log any exception that occurs in a function
+at the provided log file location. Logged information includes: qualified
+function name, the error name, the error, args, kwargs, and the timestamp
+in UTC (or in the timezone provided). Errors are re-raised after logging.
+
+  Typical usage example:
+
+  log = exception_logger("./log.log", "US/Eastern")
+  @log
+  def no_return() -> NoReturn: raise Exception
+"""
 
 import datetime
 import functools
@@ -8,59 +20,59 @@ import sys
 from typing import Any, Callable, TypeVar
 
 if (sys.version_info.major, sys.version_info.minor) < (3, 6):
-    raise Exception("Must be using Python 3.6 or higher for zoneinfo.")
+    raise Exception("Python 3.6+ required for zoneinfo.")
 elif sys.version_info.minor < 9:
     import backports.zoneinfo
 
-    BACKPORT = True
+    _zoneinfo = backports.zoneinfo
 else:
-    import zoneinfo  # type: ignore
+    import zoneinfo
 
-    BACKPORT = False
+    _zoneinfo = zoneinfo
 
-F = TypeVar("F", bound=Callable[..., Any])
+from mypy_extensions import KwArg, VarArg
 
-TIMEZONE = "US/Eastern" # for other timezones see:
-    # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-LOGGING_FILENAME = "log.log"
-LOG_FILE = pathlib.Path(".") / LOGGING_FILENAME
-try:
-    LOG_FILE.unlink()
-except FileNotFoundError:
-    pass
-logging.basicConfig(filename=LOGGING_FILENAME, filemode="a", level=logging.ERROR)
-LOGGER = logging.getLogger()
+F = TypeVar("F", bound=Callable[[VarArg(Any), KwArg(Any)], Any])
 
 
-def log(function: F) -> F:
-    """Decorator that logs the qualified function name, args, kwargs, and
-    the timestamp of execptions that occur in functions and methods."""
-    @functools.wraps(function)
-    def wrapper(*args, **kwargs):
-        args_repr = [repr(a) for a in args]
-        kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
-        if BACKPORT:
+def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
+    """Creates exception logging decorators.
+
+    Args:
+        filepath: Path for created decorator to log exception. Deletes old log file
+        if needed.
+        timezone: A tz database timezone name.
+
+    Returns:
+        Decorator that logs info of an exception which occurs in a function then
+        re-raise the exception.
+    """
+    _filepath = pathlib.Path(filepath).absolute()
+    try:
+        _filepath.unlink()
+    except FileNotFoundError:
+        pass
+    logging.basicConfig(filename=str(_filepath), filemode="a", level=logging.ERROR)
+    logger = logging.getLogger()
+
+    def decorator(function):
+        @functools.wraps(function)
+        def wrapper(*args, **kwargs):
             timestamp = str(
-                datetime.datetime.now().astimezone(
-                    backports.zoneinfo.ZoneInfo(TIMEZONE)
+                datetime.datetime.now().astimezone(_zoneinfo.ZoneInfo(timezone))
+            )
+            try:
+                output = function(*args, **kwargs)
+                return output
+            except Exception as error:
+                logger.exception(
+                    f"{function.__qualname__}\n"
+                    f"  raised {error.__class__.__name__}: {str(error)}\n"
+                    f'    called with "args = {args}, kwargs = {kwargs}"\n'
+                    f'    at "{timestamp}"\n'
                 )
-            )
-        else:
-            timestamp = str(
-                datetime.datetime.now().astimezone(
-                    zoneinfo.ZoneInfo(TIMEZONE)  # type: ignore
-                )
-            )
-        signature = ", ".join(args_repr + kwargs_repr)
-        try:
-            output = function(*args, **kwargs)
-            return output
-        except Exception as e:
-            LOGGER.exception(
-                f'Exception raised in function "{function.__qualname__}"\n'
-                f' called with args "{signature}" at "{timestamp}".\n'
-                f' exception: "{str(e)}"'
-            )
-            raise e
+                raise
 
-    return wrapper  # type: ignore
+        return wrapper
+
+    return decorator
