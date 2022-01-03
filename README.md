@@ -24,8 +24,8 @@ Logs the following exception in `log.log`.
 ```
 ERROR:root:no_return
   raised Exception: DO NOT PASS GO DO NOT COLLECT $200.
-    called with "args = (), kwargs = {}"
-    at "2022-01-02 22:40:33.287978-05:00"
+    called with args = (), kwargs = {}
+    at 2022-01-02 22:46:10.702689-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/exception_logger/main.py", line 65, in wrapper
     output = function(*args, **kwargs)
