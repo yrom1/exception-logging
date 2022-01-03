@@ -7,14 +7,15 @@ def no_return() -> NoReturn:
 ```
 Logs the following exception in `log.log`.
 ```
-ERROR:root:Exception raised in function "no_return"
- called with args "" at "2021-11-28 14:38:10.675714-05:00".
- exception: "DO NOT PASS GO DO NOT COLLECT $200."
+ERROR:root:no_return
+  raised ValueError: DO NOT PASS GO DO NOT COLLECT $200.
+    called with "args = (), kwargs = {}"
+    at "2022-01-02 21:33:23.311281-05:00"
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging-decorator/main.py", line 46, in wrapper
+  File "/home/ryan/exception-logging-decorator/exception_logger/main.py", line 41, in wrapper
     output = function(*args, **kwargs)
-  File "test.py", line 9, in no_return
-    raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
-Exception: DO NOT PASS GO DO NOT COLLECT $200.
+  File "/home/ryan/exception-logging-decorator/test.py", line 11, in no_return
+    raise ValueError("DO NOT PASS GO DO NOT COLLECT $200.")
+ValueError: DO NOT PASS GO DO NOT COLLECT $200.
 
 ```
