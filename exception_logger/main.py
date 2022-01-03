@@ -68,8 +68,8 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
                 logger.exception(
                     f"{function.__qualname__}\n"
                     f"  raised {error.__class__.__name__}: {str(error)}\n"
-                    f'    called with "args = {args}, kwargs = {kwargs}"\n'
-                    f'    at "{timestamp}"\n'
+                    f"    called with args = {args}, kwargs = {kwargs}\n"
+                    f"    at {timestamp}\n"
                 )
                 raise
 
