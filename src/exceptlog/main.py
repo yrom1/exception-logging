@@ -52,7 +52,7 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
         _filepath.unlink()
     except FileNotFoundError:
         pass
-    logging.basicConfig(filename=str(_filepath), filemode="a", level=logging.ERROR)
+    logging.basicConfig(filename=str(_filepath), filemode="a", force=True, level=logging.ERROR)
     logger = logging.getLogger()
 
     def decorator(function):
