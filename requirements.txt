@@ -1,6 +1,6 @@
 mypy
 isort
 black
-zoneinfo
-# backports.zoneinfo # make this conditional by version withsetuptools?
+zoneinfo; python_version < '3.9'
+backports.zoneinfo; python_version >= '3.9'
 types-backports
