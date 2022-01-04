@@ -11,7 +11,7 @@ def write_readme_block(file: TextIO, content: str, markup_language: str = "") ->
     file.write(f"\n```\n")
 
 
-with open("./log.log", "r") as log:
+with open("./tests/log.log", "r") as log:
     LOG_CONTENTS = log.read().rstrip()
 
 with open("./tests/test.py", "r") as f:

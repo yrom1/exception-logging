@@ -12,7 +12,7 @@ from typing import NoReturn
 
 from src.exceptlog.main import exception_logger
 
-log = exception_logger("./log.log", "US/Eastern")
+log = exception_logger("./tests/log.log", "US/Eastern")
 
 
 @log
