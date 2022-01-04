@@ -1,6 +1,5 @@
 mypy
 isort
 black
-zoneinfo; python_version < '3.9'
-backports.zoneinfo; python_version >= '3.9'
+backports.zoneinfo; python_version < '3.9'
 types-backports
