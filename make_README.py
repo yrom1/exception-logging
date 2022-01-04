@@ -1,4 +1,8 @@
+import subprocess
 from typing import TextIO
+
+cmd = ["py", "./tests/test.py"]
+process = subprocess.run(cmd, check=True, capture_output=True)
 
 
 def write_readme_block(file: TextIO, content: str, markup_language: str = "") -> None:
@@ -7,15 +11,12 @@ def write_readme_block(file: TextIO, content: str, markup_language: str = "") ->
     file.write(f"\n```\n")
 
 
-with open("log.log", "r") as log:
+with open("./log.log", "r") as log:
     LOG_CONTENTS = log.read().rstrip()
 
-with open('test.py', 'r') as f:
-    TEST_FUNCTION = f.read().rstrip()
+with open("./tests/test.py", "r") as f:
+    TEST_FUNCTION = "".join(f.readlines()[10:]).rstrip()
 
-# TEST_FUNCTION = """@log
-# def no_return() -> NoReturn:
-#     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")"""
 
 with open("README.md", "w") as README:
     README.write("# exception-logging-decorator\n")
