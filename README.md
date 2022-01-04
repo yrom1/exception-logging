@@ -1,19 +1,22 @@
 # exception-logging-decorator
-The following function:
+
+Creates an exception logging decorator that logs any exception that occurs in a function.
+
+# Usage
+
+The following function `no_return`:
 ```py
 from typing import NoReturn
 
-from src.exlog.exceptlog import exception_logger
-# if install from pip, use:
-# from exlog.exceptlog
+from exlog import exlog
 
-log = exception_logger("./tests/log.log", "US/Eastern")
+log = exlog("./tests/log.log", "US/Eastern") # default timezone is UTC
 
 
 @log
 def no_return() -> NoReturn:
     """Test function."""
-    raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
+    raise Exception("zonks!")
 
 
 if __name__ == "__main__":
@@ -25,13 +28,19 @@ if __name__ == "__main__":
 Logs the following exception in `log.log`.
 ```
 ERROR:root:no_return
-  raised Exception: DO NOT PASS GO DO NOT COLLECT $200.
+  raised Exception: zonks!
     called with args = (), kwargs = {}
-    at 2022-01-04 14:40:23.745422-05:00
+    at 2022-01-04 15:08:38.602817-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 65, in wrapper
     output = function(*args, **kwargs)
   File "/home/ryan/exception-logging-decorator/./tests/test.py", line 23, in no_return
-    raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
-Exception: DO NOT PASS GO DO NOT COLLECT $200.
+    raise Exception("zonks!")
+Exception: zonks!
+```
+
+# Installation
+
+```
+pip install exlog
 ```
