@@ -10,7 +10,7 @@ sys.path.insert(0, tests_path)
 
 from typing import NoReturn
 
-from src.exceptlog_package.main import exception_logger
+from src.exlog.exceptlog import exception_logger
 
 log = exception_logger("./tests/log.log", "US/Eastern")
 
