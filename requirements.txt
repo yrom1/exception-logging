@@ -1,5 +1,6 @@
-# mypy
-# isort
-# black
+mypy
+isort
+black
 backports.zoneinfo; python_version < '3.9'
 types-backports
+mypy_extensions
