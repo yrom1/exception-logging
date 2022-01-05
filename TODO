@@ -1,0 +1,4 @@
+Would be nice to be able to create create multiple loggers
+that logged to different files. An arbitrary number of loggers
+Need to make some logic to handle adding loggers to a manager
+and then printing to the right logger.

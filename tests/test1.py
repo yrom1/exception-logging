@@ -11,8 +11,6 @@ sys.path.insert(0, tests_path)
 from typing import NoReturn
 
 from src.exlog.exceptlog import exception_logger
-# if install from pip, use:
-# from exlog.exceptlog
 
 log = exception_logger("./tests/log.log", "US/Eastern")
 

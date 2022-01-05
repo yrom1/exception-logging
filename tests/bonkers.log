@@ -1,0 +1,20 @@
+ERROR:root:zonkers
+  raised Exception: zonkers!
+    called with args = (), kwargs = {}
+    at 2022-01-05 08:49:15.516441+00:00
+Traceback (most recent call last):
+  File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 65, in wrapper
+    output = function(*args, **kwargs)
+  File "/home/ryan/exception-logging-decorator/./tests/test2.py", line 19, in zonkers
+    def zonkers() -> NoReturn: raise Exception("zonkers!")
+Exception: zonkers!
+ERROR:root:bonkers
+  raised Exception: bonkers!
+    called with args = (), kwargs = {}
+    at 2022-01-05 08:49:15.517031+00:00
+Traceback (most recent call last):
+  File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 65, in wrapper
+    output = function(*args, **kwargs)
+  File "/home/ryan/exception-logging-decorator/./tests/test2.py", line 22, in bonkers
+    def bonkers() -> NoReturn: raise Exception("bonkers!")
+Exception: bonkers!
