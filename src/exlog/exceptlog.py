@@ -85,13 +85,12 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
 
 def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
     """
-    Apply an exception logging decorator to all callable methods of a class
+    Creates an exception logging decorator that decorates all methods in a class.
 
     Args:
         filepath: Path for created decorator to log exception. Deletes old log file
         if needed.
         timezone: A tz database timezone name.
-
     Returns:
         Decorator that logs info of an exception which occurs in a method then
         re-raise the exception.
@@ -109,3 +108,26 @@ def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[
         return cls
 
     return decorator
+
+
+def exception_logger_meta(filepath: str, timezone: str = "Etc/UTC") -> type:
+    """
+    Creates an exception logging metaclass that decorates all methods in a class hierarchy.
+
+    Args:
+        filepath: Path for created decorator to log exception. Deletes old log file
+        if needed.
+        timezone: A tz database timezone name.
+
+    Returns:
+        Metaclass that logs info of an exception which occurs in a method then
+        re-raise the exception.
+    """
+
+    class metaclass_(type):
+        def __new__(cls, clsname, bases, clsdict):
+            return exception_logger_cls(filepath, timezone)(
+                super().__new__(cls, clsname, bases, clsdict)
+            )
+
+    return metaclass_
