@@ -1,4 +1,4 @@
-# exception-logging-decorator
+# exception-logging
 Exception logging decorator, class decorator and metaclass generator. Some example usages are show below, and the corresponding log files created.
 
 ---
