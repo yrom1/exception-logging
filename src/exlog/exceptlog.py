@@ -61,6 +61,8 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
             timestamp = str(
                 datetime.datetime.now().astimezone(_zoneinfo.ZoneInfo(timezone))
             )
+            repr_args = tuple(repr(arg) for arg in args)
+            repr_kwargs = {repr(key):repr(value) for key, value in kwargs}
             try:
                 output = function(*args, **kwargs)
                 return output
@@ -68,7 +70,7 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
                 logger.exception(
                     f"{function.__qualname__}\n"
                     f"  raised {error.__class__.__name__}: {str(error)}\n"
-                    f"    called with args = {args}, kwargs = {kwargs}\n"
+                    f"    called with args = {repr_args}, kwargs = {repr_kwargs}\n"
                     f"    at {timestamp}\n"
                 )
                 raise
