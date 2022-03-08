@@ -87,11 +87,11 @@ def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[
 
     def decorator(cls):
         for key, value in vars(cls).items():
-            if callable(value):
-                setattr(cls, key, log(value))
-                continue
             if isinstance(value, (classmethod, staticmethod)):
                 setattr(cls, key, type(value)(log(value.__func__)))
+                continue
+            elif callable(value):
+                setattr(cls, key, log(value))
                 continue
         return cls
 
