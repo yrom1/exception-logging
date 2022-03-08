@@ -26,5 +26,5 @@ for test, log in test_log_pair:
     with open("README.md", "a") as README:
         README.write("\n\n---\n\n")
         write_markdown_block(README, test_file, "py")
-        README.write(f"Logs the following in {log}.")
+        README.write(f"Logs the following in `{log}`.")
         write_markdown_block(README, log_file)

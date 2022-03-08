@@ -10,8 +10,6 @@ sys.path.insert(0, tests_path)
 
 """Metaclass example."""
 
-from typing import NoReturn
-
 from src.exlog.exceptlog import exception_logger_meta
 
 log = exception_logger_meta("./tests/meta.log", "US/Eastern")
@@ -22,12 +20,12 @@ class Base(metaclass=log):
 
 class Foo(Base):
     @classmethod
-    def bar1(cls) -> NoReturn:
+    def bar1(cls):
         raise Exception("METABAR1!")
     @staticmethod
-    def bar2() -> NoReturn:
+    def bar2():
         raise Exception("METABAR2!")
-    def bar3(self) -> NoReturn:
+    def bar3(self):
         raise Exception("METABAR3!")
 
 

@@ -10,8 +10,6 @@ sys.path.insert(0, tests_path)
 
 """Class decorator example."""
 
-from typing import NoReturn
-
 from src.exlog.exceptlog import exception_logger_cls
 
 log = exception_logger_cls("./tests/cls.log", "US/Eastern")
@@ -19,12 +17,12 @@ log = exception_logger_cls("./tests/cls.log", "US/Eastern")
 @log
 class Foo:
     @classmethod
-    def bar1(cls) -> NoReturn:
+    def bar1(cls):
         raise Exception("BAR1!")
     @staticmethod
-    def bar2() -> NoReturn:
+    def bar2():
         raise Exception("BAR2!")
-    def bar3(self) -> NoReturn:
+    def bar3(self):
         raise Exception("BAR3!")
 
 

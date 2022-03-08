@@ -10,15 +10,13 @@ sys.path.insert(0, tests_path)
 
 """Standard decorator example."""
 
-from typing import NoReturn
-
 from src.exlog.exceptlog import exception_logger
 
 log = exception_logger("./tests/log.log", "US/Eastern")
 
 
 @log
-def no_return() -> NoReturn:
+def no_return():
     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
 
 
