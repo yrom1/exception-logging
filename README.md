@@ -28,7 +28,7 @@ Logs the following in `log.log`.
 ERROR:root:no_return
   raised Exception: DO NOT PASS GO DO NOT COLLECT $200.
     called with args = (), kwargs = {}
-    at 2022-03-07 23:56:51.965732-05:00
+    at 2022-03-07 23:58:09.719353-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
@@ -72,8 +72,8 @@ Logs the following in `cls.log`.
 ```
 ERROR:root:Foo.bar1
   raised Exception: BAR1!
-    called with args = ('<__main__.Foo object at 0x7fa03d60c820>',), kwargs = {}
-    at 2022-03-07 23:56:52.007691-05:00
+    called with args = ("<class '__main__.Foo'>",), kwargs = {}
+    at 2022-03-07 23:58:09.763220-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
@@ -81,17 +81,19 @@ Traceback (most recent call last):
     raise Exception("BAR1!")
 Exception: BAR1!
 ERROR:root:Foo.bar2
-  raised TypeError: bar2() takes 0 positional arguments but 1 was given
-    called with args = ('<__main__.Foo object at 0x7fa03d60c820>',), kwargs = {}
-    at 2022-03-07 23:56:52.008251-05:00
+  raised Exception: BAR2!
+    called with args = (), kwargs = {}
+    at 2022-03-07 23:58:09.763678-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-TypeError: bar2() takes 0 positional arguments but 1 was given
+  File "./tests/test_cls.py", line 24, in bar2
+    raise Exception("BAR2!")
+Exception: BAR2!
 ERROR:root:Foo.bar3
   raised Exception: BAR3!
-    called with args = ('<__main__.Foo object at 0x7fa03d60c820>',), kwargs = {}
-    at 2022-03-07 23:56:52.008365-05:00
+    called with args = ('<__main__.Foo object at 0x7fefc0bb5a90>',), kwargs = {}
+    at 2022-03-07 23:58:09.763792-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
@@ -138,8 +140,8 @@ Logs the following in `meta.log`.
 ```
 ERROR:root:Foo.bar1
   raised Exception: METABAR1!
-    called with args = ('<__main__.Foo object at 0x7fc521102490>',), kwargs = {}
-    at 2022-03-07 23:56:52.048901-05:00
+    called with args = ("<class '__main__.Foo'>",), kwargs = {}
+    at 2022-03-07 23:58:09.825886-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
@@ -147,17 +149,19 @@ Traceback (most recent call last):
     raise Exception("METABAR1!")
 Exception: METABAR1!
 ERROR:root:Foo.bar2
-  raised TypeError: bar2() takes 0 positional arguments but 1 was given
-    called with args = ('<__main__.Foo object at 0x7fc521102490>',), kwargs = {}
-    at 2022-03-07 23:56:52.049357-05:00
+  raised Exception: METABAR2!
+    called with args = (), kwargs = {}
+    at 2022-03-07 23:58:09.826440-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-TypeError: bar2() takes 0 positional arguments but 1 was given
+  File "./tests/test_meta.py", line 27, in bar2
+    raise Exception("METABAR2!")
+Exception: METABAR2!
 ERROR:root:Foo.bar3
   raised Exception: METABAR3!
-    called with args = ('<__main__.Foo object at 0x7fc521102490>',), kwargs = {}
-    at 2022-03-07 23:56:52.049469-05:00
+    called with args = ('<__main__.Foo object at 0x7fd52f27d490>',), kwargs = {}
+    at 2022-03-07 23:58:09.826569-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
