@@ -17,7 +17,6 @@ log = exception_logger("./tests/log.log", "US/Eastern")
 
 @log
 def no_return() -> NoReturn:
-    """Test function."""
     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
 
 
