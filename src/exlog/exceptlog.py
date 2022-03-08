@@ -104,7 +104,7 @@ def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[
                 setattr(cls, key, log(value))
                 continue
             if isinstance(value, (classmethod, staticmethod)):
-                setattr(cls, key, type(value)(log(value.__func__)))
+                setattr(cls, key, log(value.__func__))
                 continue
         return cls
 
