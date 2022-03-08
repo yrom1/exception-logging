@@ -36,7 +36,8 @@ F = TypeVar("F", bound=Callable[[VarArg(Any), KwArg(Any)], Any])
 
 
 def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
-    """Creates exception logging decorators.
+    """
+    Creates exception logging decorators.
 
     Args:
         filepath: Path for created decorator to log exception. Deletes old log file
@@ -76,5 +77,28 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
                 raise
 
         return wrapper
+
+    return decorator
+
+def exception_loggger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
+    """
+    Apply an exception logging decorator to all callable methods of a class
+
+    Args:
+        filepath: Path for created decorator to log exception. Deletes old log file
+        if needed.
+        timezone: A tz database timezone name.
+
+    Returns:
+        Decorator that logs info of an exception which occurs in a method then
+        re-raise the exception.
+    """
+    log = exception_logger(filepath, timezone)
+
+    def decorator(cls):
+        for key, value in vars(cls).items():
+            if callable(value):
+                setattr(cls, key, log(value))
+        return cls
 
     return decorator
