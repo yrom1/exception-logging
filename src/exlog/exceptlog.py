@@ -22,11 +22,11 @@ from typing import Any, Callable, TypeVar
 if (sys.version_info.major, sys.version_info.minor) < (3, 6):
     raise Exception("Python 3.6+ required for zoneinfo.")
 elif sys.version_info.minor < 9:
-    import backports.zoneinfo
+    import backports.zoneinfo  # type:ignore
 
     _zoneinfo = backports.zoneinfo
 else:
-    import zoneinfo
+    import zoneinfo  # type:ignore
 
     _zoneinfo = zoneinfo
 
@@ -53,7 +53,9 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
         _filepath.unlink()
     except FileNotFoundError:
         pass
-    logging.basicConfig(filename=str(_filepath), filemode="a", force=True, level=logging.ERROR)
+    logging.basicConfig(
+        filename=str(_filepath), filemode="a", force=True, level=logging.ERROR
+    )
     logger = logging.getLogger()
 
     def decorator(function):
@@ -63,7 +65,7 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
                 datetime.datetime.now().astimezone(_zoneinfo.ZoneInfo(timezone))
             )
             repr_args = tuple(repr(arg) for arg in args)
-            repr_kwargs = {repr(key):repr(value) for key, value in kwargs}
+            repr_kwargs = {repr(key): repr(value) for key, value in kwargs}
             try:
                 output = function(*args, **kwargs)
                 return output
@@ -80,7 +82,8 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
 
     return decorator
 
-def exception_loggger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
+
+def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
     """
     Apply an exception logging decorator to all callable methods of a class
 
@@ -99,6 +102,10 @@ def exception_loggger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[
         for key, value in vars(cls).items():
             if callable(value):
                 setattr(cls, key, log(value))
+                continue
+            if isinstance(value, (classmethod, staticmethod)):
+                setattr(cls, key, type(value)(log(value.__func__)))
+                continue
         return cls
 
     return decorator
