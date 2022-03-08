@@ -1,30 +1,28 @@
 ERROR:root:Foo.bar1
   raised Exception: BAR1!
-    called with args = ('<__main__.Foo object at 0x7f08b3ed6280>',), kwargs = {}
-    at 2022-03-07 21:53:11.617982-05:00
+    called with args = ('<__main__.Foo object at 0x7fd5ea30cb50>',), kwargs = {}
+    at 2022-03-07 23:28:57.567867-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 70, in wrapper
     output = function(*args, **kwargs)
-  File "./tests/test_cls.py", line 22, in bar1
+  File "./tests/test_cls.py", line 25, in bar1
     raise Exception("BAR1!")
 Exception: BAR1!
 ERROR:root:Foo.bar2
-  raised Exception: BAR2!
-    called with args = (), kwargs = {}
-    at 2022-03-07 21:53:11.618744-05:00
+  raised TypeError: bar2() takes 0 positional arguments but 1 was given
+    called with args = ('<__main__.Foo object at 0x7fd5ea30cb50>',), kwargs = {}
+    at 2022-03-07 23:28:57.568329-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 70, in wrapper
     output = function(*args, **kwargs)
-  File "./tests/test_cls.py", line 25, in bar2
-    raise Exception("BAR2!")
-Exception: BAR2!
+TypeError: bar2() takes 0 positional arguments but 1 was given
 ERROR:root:Foo.bar3
   raised Exception: BAR3!
-    called with args = ('<__main__.Foo object at 0x7f08b3ed6280>',), kwargs = {}
-    at 2022-03-07 21:53:11.618932-05:00
+    called with args = ('<__main__.Foo object at 0x7fd5ea30cb50>',), kwargs = {}
+    at 2022-03-07 23:28:57.568439-05:00
 Traceback (most recent call last):
   File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 70, in wrapper
     output = function(*args, **kwargs)
-  File "./tests/test_cls.py", line 27, in bar3
+  File "./tests/test_cls.py", line 30, in bar3
     raise Exception("BAR3!")
 Exception: BAR3!

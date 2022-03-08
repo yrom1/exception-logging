@@ -8,12 +8,13 @@ tests_path = str(pathlib.Path(__file__).absolute().parent.parent)
 sys.path.insert(0, tests_path)
 ##############################################################
 
+"""Class decorator example."""
+
 from typing import NoReturn
 
 from src.exlog.exceptlog import exception_logger_cls
 
 log = exception_logger_cls("./tests/cls.log", "US/Eastern")
-
 
 @log
 class Foo:

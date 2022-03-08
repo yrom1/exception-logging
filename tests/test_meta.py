@@ -8,6 +8,8 @@ tests_path = str(pathlib.Path(__file__).absolute().parent.parent)
 sys.path.insert(0, tests_path)
 ##############################################################
 
+"""Metaclass example."""
+
 from typing import NoReturn
 
 from src.exlog.exceptlog import exception_logger_meta
