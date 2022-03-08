@@ -1,16 +1,4 @@
-"""Second order exception logging decorator.
-
-Creates exception loggers that log any exception that occurs in a function
-at the provided log file location. Logged information includes: qualified
-function name, the error name, the error, args, kwargs, and the timestamp
-in UTC (or in the timezone provided). Errors are re-raised after logging.
-
-  Typical usage example:
-
-  log = exception_logger("./log.log", "US/Eastern")
-  @log
-  def no_return() -> NoReturn: raise Exception
-"""
+"""Exception logging decorator, class decorator and metaclass generator."""
 
 import datetime
 import functools
