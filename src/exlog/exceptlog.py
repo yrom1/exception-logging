@@ -71,7 +71,9 @@ def exception_logger(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], 
     return decorator
 
 
-def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[F], F]:
+def exception_logger_cls(
+    filepath: str, timezone: str = "Etc/UTC"
+) -> Callable[[type], type]:
     """
     Creates an exception logging decorator that decorates all methods in a class.
 
@@ -85,7 +87,7 @@ def exception_logger_cls(filepath: str, timezone: str = "Etc/UTC") -> Callable[[
     """
     log = exception_logger(filepath, timezone)
 
-    def decorator(cls):
+    def decorator(cls: type) -> type:
         for key, value in vars(cls).items():
             if callable(value):
                 setattr(cls, key, log(value))
