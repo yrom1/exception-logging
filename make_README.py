@@ -13,8 +13,8 @@ for test, log in test_log_pair:
     process = subprocess.run(cmd, check=True, capture_output=True)
 
 with open("README.md", "w") as README:
-    README.write("# exception-logging-decorator\n")
-    README.write('Exception logging decorator, class decorator and metaclass generator. Some example usages are show below, and the corresponding log files created.')
+    README.write("# exception-logging\n")
+    README.write('Exception logging decorator, class decorator and metaclass generator. Some usage examples are shown below, and the corresponding log files generated.')
 
 for test, log in test_log_pair:
     with open(f"./tests/{test}", "r") as f:

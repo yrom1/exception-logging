@@ -1,30 +1,30 @@
 ERROR:root:Foo.bar1
   raised Exception: METABAR1!
     called with args = ("<class '__main__.Foo'>",), kwargs = {}
-    at 2022-03-07 23:58:09.825886-05:00
+    at 2022-03-08 14:36:54.375709-05:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "./tests/test_meta.py", line 24, in bar1
+  File "/home/ryan/exception-logging/./tests/test_meta.py", line 24, in bar1
     raise Exception("METABAR1!")
 Exception: METABAR1!
 ERROR:root:Foo.bar2
   raised Exception: METABAR2!
     called with args = (), kwargs = {}
-    at 2022-03-07 23:58:09.826440-05:00
+    at 2022-03-08 14:36:54.376199-05:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "./tests/test_meta.py", line 27, in bar2
+  File "/home/ryan/exception-logging/./tests/test_meta.py", line 27, in bar2
     raise Exception("METABAR2!")
 Exception: METABAR2!
 ERROR:root:Foo.bar3
   raised Exception: METABAR3!
-    called with args = ('<__main__.Foo object at 0x7fd52f27d490>',), kwargs = {}
-    at 2022-03-07 23:58:09.826569-05:00
+    called with args = ('<__main__.Foo object at 0x7f51790c9c90>',), kwargs = {}
+    at 2022-03-08 14:36:54.376358-05:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging-decorator/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "./tests/test_meta.py", line 29, in bar3
+  File "/home/ryan/exception-logging/./tests/test_meta.py", line 29, in bar3
     raise Exception("METABAR3!")
 Exception: METABAR3!
