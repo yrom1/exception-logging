@@ -7,7 +7,7 @@ Exception logging decorator, class decorator and metaclass generator. Some usage
 ```py
 """Standard decorator example."""
 
-from src.exlog.exceptlog import exception_logger
+from exlog.exceptlog import exception_logger
 
 log = exception_logger("./tests/log.log", "US/Eastern")
 
@@ -28,11 +28,11 @@ Logs the following in `log.log`.
 ERROR:root:no_return
   raised Exception: DO NOT PASS GO DO NOT COLLECT $200.
     called with args = (), kwargs = {}
-    at 2022-03-08 14:36:54.288932-05:00
+    at 2022-04-09 06:04:44.385107-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_logger.py", line 20, in no_return
+  File "/Users/ryan/exception-logging/./tests/test_logger.py", line 20, in no_return
     raise Exception("DO NOT PASS GO DO NOT COLLECT $200.")
 Exception: DO NOT PASS GO DO NOT COLLECT $200.
 ```
@@ -44,7 +44,7 @@ Exception: DO NOT PASS GO DO NOT COLLECT $200.
 ```py
 """Class decorator example."""
 
-from src.exlog.exceptlog import exception_logger_cls
+from exlog.exceptlog import exception_logger_cls
 
 log = exception_logger_cls("./tests/cls.log", "US/Eastern")
 
@@ -73,31 +73,31 @@ Logs the following in `cls.log`.
 ERROR:root:Foo.bar1
   raised Exception: BAR1!
     called with args = ("<class '__main__.Foo'>",), kwargs = {}
-    at 2022-03-08 14:36:54.331297-05:00
+    at 2022-04-09 06:04:44.414810-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_cls.py", line 21, in bar1
+  File "/Users/ryan/exception-logging/./tests/test_cls.py", line 21, in bar1
     raise Exception("BAR1!")
 Exception: BAR1!
 ERROR:root:Foo.bar2
   raised Exception: BAR2!
     called with args = (), kwargs = {}
-    at 2022-03-08 14:36:54.331776-05:00
+    at 2022-04-09 06:04:44.415035-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_cls.py", line 24, in bar2
+  File "/Users/ryan/exception-logging/./tests/test_cls.py", line 24, in bar2
     raise Exception("BAR2!")
 Exception: BAR2!
 ERROR:root:Foo.bar3
   raised Exception: BAR3!
-    called with args = ('<__main__.Foo object at 0x7efff5f15cf0>',), kwargs = {}
-    at 2022-03-08 14:36:54.331969-05:00
+    called with args = ('<__main__.Foo object at 0x104cb9db0>',), kwargs = {}
+    at 2022-04-09 06:04:44.415088-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_cls.py", line 26, in bar3
+  File "/Users/ryan/exception-logging/./tests/test_cls.py", line 26, in bar3
     raise Exception("BAR3!")
 Exception: BAR3!
 ```
@@ -109,7 +109,7 @@ Exception: BAR3!
 ```py
 """Metaclass example."""
 
-from src.exlog.exceptlog import exception_logger_meta
+from exlog.exceptlog import exception_logger_meta
 
 log = exception_logger_meta("./tests/meta.log", "US/Eastern")
 
@@ -141,31 +141,31 @@ Logs the following in `meta.log`.
 ERROR:root:Foo.bar1
   raised Exception: METABAR1!
     called with args = ("<class '__main__.Foo'>",), kwargs = {}
-    at 2022-03-08 14:36:54.375709-05:00
+    at 2022-04-09 06:04:44.442121-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_meta.py", line 24, in bar1
+  File "/Users/ryan/exception-logging/./tests/test_meta.py", line 24, in bar1
     raise Exception("METABAR1!")
 Exception: METABAR1!
 ERROR:root:Foo.bar2
   raised Exception: METABAR2!
     called with args = (), kwargs = {}
-    at 2022-03-08 14:36:54.376199-05:00
+    at 2022-04-09 06:04:44.442349-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_meta.py", line 27, in bar2
+  File "/Users/ryan/exception-logging/./tests/test_meta.py", line 27, in bar2
     raise Exception("METABAR2!")
 Exception: METABAR2!
 ERROR:root:Foo.bar3
   raised Exception: METABAR3!
-    called with args = ('<__main__.Foo object at 0x7f51790c9c90>',), kwargs = {}
-    at 2022-03-08 14:36:54.376358-05:00
+    called with args = ('<__main__.Foo object at 0x104b04d00>',), kwargs = {}
+    at 2022-04-09 06:04:44.442406-04:00
 Traceback (most recent call last):
-  File "/home/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
+  File "/Users/ryan/exception-logging/src/exlog/exceptlog.py", line 58, in wrapper
     output = function(*args, **kwargs)
-  File "/home/ryan/exception-logging/./tests/test_meta.py", line 29, in bar3
+  File "/Users/ryan/exception-logging/./tests/test_meta.py", line 29, in bar3
     raise Exception("METABAR3!")
 Exception: METABAR3!
 ```
